@@ -24,25 +24,25 @@ def Error_protection():
         quit()
     #Incase there are any bugs I do not see
         
-def Beginning_Question(whileloop,torf,encrypt):
+def Beginning_Question(whileloop,dore,encrypt):
     while whileloop == True:
-        torf=str(input("Decrypt or encrypt?"))
-        torf=torf.lower()
+        dore=str(input("Decrypt or encrypt?"))
+        dore=dore.lower()
             
-        if torf == "decrypt":
+        if dore == "decrypt":
             encrypt = False
             whileloop = False
         
-        elif torf == "encrypt":
+        elif dore == "encrypt":
             encrypt = True
             whileloop = False
         else:
             print("Just enter decrypt or encrypt its not that hard lol.")
-    return encrypt,torf
+    return encrypt,dore
     #Asks user if they want to decrypt or encrypt then returns user's choice
     
-def Ask_For_Text(torf):
-    text=str(input("Enter text that needs to be "+torf+"ed"))
+def Ask_For_Text(dore):
+    text=str(input("Enter text that needs to be "+dore+"ed"))
     return text
     #Asks user text that needs to be encrypted/decrypted
 
@@ -106,8 +106,8 @@ def Print_Text(text,key,encrypt):
     #Prints decrypted/encrypted text    
 
     
-encrypt,torf = Beginning_Question(whileloop,torf,encrypt)
-text = Ask_for_text(torf)
+encrypt,dore = Beginning_Question(whileloop,dore,encrypt)
+text = Ask_for_text(dore)
 #Calling mandatory functions
 
 if encrypt == True:
