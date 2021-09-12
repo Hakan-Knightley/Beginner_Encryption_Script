@@ -98,7 +98,6 @@ def Encrypt_Text_And_Create_Key(key,text,encrypted_string):
     return encrypted_string,key
 
 def Decrypt_Text_Using_Key(key,text,text_to_decrypt,decrypted_text):
-###########WORK ON DECRYPTION
     key_array=[]
     key_nested_array=[]
     tempval=""
@@ -113,7 +112,7 @@ def Decrypt_Text_Using_Key(key,text,text_to_decrypt,decrypted_text):
             tempval=""
         else:
             tempval+=str(text[character])
-    #takes each number of the encrypted string and puts it into am array using a for loop
+    #takes each number of the encrypted string and puts it into an array using a for loop
     for number in range(0,len(key)):
         key_array.append(key[number])
     for character in range(0,4):
@@ -123,22 +122,21 @@ def Decrypt_Text_Using_Key(key,text,text_to_decrypt,decrypted_text):
         tempval2=[]
         key_nested_array.append(key_array.pop(0))
     for value in text_to_decrypt:
-        count3=0
         try:
             str(key_nested_array[count1])
         except:
             count1=0
-            count2=1            
+            count2=1
+        tempval3 = int(value) // int(key_nested_array[count2])
         for key_char in key_nested_array[count1]:
-            tempval3 += int(ord(key_char))
-        tempval3*= int(key_nested_array[count2])
-        tempval4 = int(value) - int(tempval3)
-        tempval3=0
-        decrypted_text += chr(tempval4)
+            tempval3 -= int(ord(key_char))
+        decrypted_text += str(chr(tempval3))
         count1+=2
         count2+=2
-    return decrypted_text,key            
-#fix decryption its close            
+        tempval3=0
+    return decrypted_text,key
+        #Reverses the encryption algorythm and returns the decrypted value
+           
             
         
     
@@ -183,9 +181,6 @@ else:
 # Feedback will be greatly appreciated
 # Github: Hakan-Knightley
 # Discord: Spoon#4704
-
-
-
 
 
 
