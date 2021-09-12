@@ -6,7 +6,7 @@ encrypt = True
 whileloop = True
 #booleans
 
-placeholder=[]
+text_to_decrypt=[]
 #arrays
 
 
@@ -15,8 +15,8 @@ encrypted_string=0
 
 key =""
 userkey=""
-text_to_decrypt=""
 decrypted_text=""
+dore=""
 #strings
 
 def Error_protection():
@@ -41,9 +41,11 @@ def Beginning_Question(whileloop,dore,encrypt):
     return encrypt,dore
     #Asks user if they want to decrypt or encrypt then returns user's choice
     
-def Ask_For_Text(dore):
+def Ask_For_Text(dore,encrypt,key):
     text=str(input("Enter text that needs to be "+dore+"ed"))
-    return text
+    if encrypt == False:
+        key=str(input("Enter the key that will be used to decrypt the text"))
+    return text,key
     #Asks user text that needs to be encrypted/decrypted
 
 def Encrypt_Text_And_Create_Key(key,text,encrypted_string):
@@ -95,8 +97,54 @@ def Encrypt_Text_And_Create_Key(key,text,encrypted_string):
         encrypted_string = encrypted_string + " "
     return encrypted_string,key
 
-def Decrypt_Text_Using_key():
+def Decrypt_Text_Using_Key(key,text,text_to_decrypt,decrypted_text):
 ###########WORK ON DECRYPTION
+    key_array=[]
+    key_nested_array=[]
+    tempval=""
+    tempval2=[]
+    tempval3=0
+    count1=0
+    count2=1
+    count3=0
+    for character in range(0,len(text)):
+        if text[character] == " ":
+            text_to_decrypt.append(tempval)
+            tempval=""
+        else:
+            tempval+=str(text[character])
+    #takes each number of the encrypted string and puts it into am array using a for loop
+    for number in range(0,len(key)):
+        key_array.append(key[number])
+    for character in range(0,4):
+        for character2 in range(0,7):
+            tempval2.append(key_array.pop(0))
+        key_nested_array.append(tempval2)
+        tempval2=[]
+        key_nested_array.append(key_array.pop(0))
+    for value in text_to_decrypt:
+        count3=0
+        try:
+            str(key_nested_array[count1])
+        except:
+            count1=0
+            count2=1            
+        for key_char in key_nested_array[count1]:
+            tempval3 += int(ord(key_char))
+        tempval3*= int(key_nested_array[count2])
+        tempval4 = int(value) - int(tempval3)
+        tempval3=0
+        decrypted_text += chr(tempval4)
+        count1+=2
+        count2+=2
+    return decrypted_text,key            
+#fix decryption its close            
+            
+        
+    
+            
+            
+        
     
 def Print_Text(text,key,encrypt):
     if encrypt == True:
@@ -107,15 +155,15 @@ def Print_Text(text,key,encrypt):
 
     
 encrypt,dore = Beginning_Question(whileloop,dore,encrypt)
-text = Ask_for_text(dore)
+text,key = Ask_For_Text(dore,encrypt,key)
 #Calling mandatory functions
 
 if encrypt == True:
     encrypted_string,key = Encrypt_Text_And_Create_Key(key,text,encrypted_string)
-    Print_text(encrypted_string,key,encrypt)
+    Print_Text(encrypted_string,key,encrypt)
 elif encrypt == False:
-    decrypted_string,key = Decrypt_Text_Using_Key(key,text,decrypted_string)
-    Print_text(decrypted_string,key,encrypt)
+    decrypted_string,key = Decrypt_Text_Using_Key(key,text,text_to_decrypt,decrypted_text)
+    Print_Text(decrypted_string,key,encrypt)
 else:
     Error_protection()
 #Calls encryption or decryption function depending on what user selected at start and then prints
